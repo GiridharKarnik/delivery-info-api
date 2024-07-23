@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { NextDeliveryComms } from './interfaces/NextDeliveryComms.interface';
 import { UsersService } from '../users/users.service';
+import { generateCatNameMentions } from './utils/generateCatNameMentions';
 
 @Injectable()
 export class CommsService {
@@ -9,7 +10,7 @@ export class CommsService {
   getNextDeliveryMessage(userId: string): NextDeliveryComms {
     const user = this.usersService.findUserById(userId);
 
-    console.log(JSON.stringify(user));
+    const catNameMentions = generateCatNameMentions(user.cats);
 
     return {
       title: 'Your next delivery for Maymie and Murphy',
