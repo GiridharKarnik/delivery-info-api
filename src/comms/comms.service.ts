@@ -5,6 +5,8 @@ import { generateCatNameMentions } from './utils/generateCatNameMentions';
 import { PricingService } from '../pricing/pricing.service';
 import { calculateOrderPrice } from '../shared/utils/calculateOrderPrice';
 
+const FREE_GIFT_THRESHOLD = 120;
+
 @Injectable()
 export class CommsService {
   constructor(
@@ -24,7 +26,7 @@ export class CommsService {
       title: `Your next delivery for ${catNameMentions}`,
       message: `Hey ${user.firstName}! In two days' time, we'll be charging you for your next order for ${catNameMentions}'s fresh food.`,
       totalPrice: `£${totalPrice}`,
-      freeGift: false,
+      freeGift: totalPrice > FREE_GIFT_THRESHOLD,
     };
   }
 }
