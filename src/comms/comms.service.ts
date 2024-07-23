@@ -3,6 +3,7 @@ import { NextDeliveryComms } from './interfaces/NextDeliveryComms.interface';
 import { UsersService } from '../users/users.service';
 import { generateCatNameMentions } from './utils/generateCatNameMentions';
 import { PricingService } from '../pricing/pricing.service';
+import { calculateOrderPrice } from '../shared/utils/calculateOrderPrice';
 
 @Injectable()
 export class CommsService {
@@ -17,13 +18,12 @@ export class CommsService {
     const catNameMentions = generateCatNameMentions(user.cats);
 
     const pouchSizePriceMap = this.pricingService.getLatestPricing();
-
-    console.log(pouchSizePriceMap);
+    const totalPrice = calculateOrderPrice(user.cats, pouchSizePriceMap);
 
     return {
       title: `Your next delivery for ${catNameMentions}`,
       message: `Hey ${user.firstName}! In two days' time, we'll be charging you for your next order for ${catNameMentions}'s fresh food.`,
-      totalPrice: '£71.25',
+      totalPrice: `£${totalPrice}`,
       freeGift: false,
     };
   }
