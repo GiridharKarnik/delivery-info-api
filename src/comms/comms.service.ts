@@ -13,9 +13,8 @@ export class CommsService {
     const catNameMentions = generateCatNameMentions(user.cats);
 
     return {
-      title: 'Your next delivery for Maymie and Murphy',
-      message:
-        "Hey Tyra! In two days' time, we'll be charging you for your next order for Maymie and Murphy's fresh food.",
+      title: `Your next delivery for ${catNameMentions}`,
+      message: `Hey ${user.firstName}! In two days' time, we'll be charging you for your next order for ${catNameMentions}'s fresh food.`,
       totalPrice: '£71.25',
       freeGift: false,
     };
